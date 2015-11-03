@@ -99,7 +99,7 @@ OC字符串
 
 C语言字符串转换为OC字符串
 
-`const char * s = [@"abc" UTF8String]`;
+`const char * s = [@"abc" UTF8String];`
 
 OC字符串转换为C字符串
 
@@ -148,5 +148,7 @@ isEqualToString比较字符串时区分大小写，compare忽略大小写
    
 length 指字符串长度不是字节数
 
-NSLog(@"%c",[@"abc" characterAtIndex:0]);取出制定位置的字符
+`NSLog(@"%c",[@"abc" characterAtIndex:0]);`
+
+取出指定位置的字符
 
