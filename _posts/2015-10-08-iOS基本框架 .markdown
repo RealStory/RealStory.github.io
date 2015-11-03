@@ -4,7 +4,6 @@ title:  "iOS基本框架"
 date:   2015-10-08 11:21:59 +0800
 categories: 技术总结
 ---
-#iOS开发基本框架
 	概要：iOS系统的层次架构分为四层，从上到下依次为为：Cocoa Touch Layer（触摸UI层）、
 
 	Media Layer（媒体层）、Core Services Layer（核心服务层）、Core OS Layer（核心OS层）
