@@ -4,5 +4,150 @@ title:  "iOS基本框架"
 date:   2015-10-08 11:21:59 +0800
 categories: 技术总结
 ---
+#iOS开发基本框架
+	概要：iOS系统的层次架构分为四层，从上到下依次为为：Cocoa Touch Layer（触摸UI层）、
 
+	Media Layer（媒体层）、Core Services Layer（核心服务层）、Core OS Layer（核心OS层）
+
+	低层次框架提供iOS的基本服务和技术，高层次框架建立在低层次框架之上，
+
+	用来提供更加复杂的服务和技术，较高级的框架向较低级的结构提供面向对象的抽象
+	
+##Foundation框架
+Foundation框架提供Core Foundation框架提供的功能的Objective-C封装，处于Core Service层
+
+使用Foundation可以： 
+
+*	创建和管理集合，例如数组和字典
+*	访问存储在应用程序里的图片和其它资源
+*	创建和管理字符串
+*	提交和接收通知
+*	创建日期和时间对象
+*	自动发现IP网络上的设备
+*	操作URL流
+*	执行异步代码
+		
+
+
+1.常用结构体
+
+NSRange
+
+`NSRange rg ={3,5};`
+
+第一个参数是起始位置，第二个参数是长度：rg.location = 3;	rg.length = 5;，另一种定义方式：
+
+`NSRange rg = NSMakeRange(3, 5);`
+
+NSPoint
+
+`NSPoint p = NSMakePoin(10, 15)`
+
+NSSize
+
+`NSSize size = NSMakeSize(10, 15)`
+
+NSRect
+
+`NSRect rect = NSMakeRect(0, 0, 100, 100)`
+
+NSSize等价CGSize，NSRect等价CGRect
+
+	struct CGSize {
+	CGFloat width;
+	CGFloat height
+	};
+	typedef CGSize NSSize;
+2.日期
+
+`NSDate * date1 = [NSDate date];`
+
+获取当前日期
+
+`NSDate * date2 = [NSDate dateWithTimeIntervalSinceNow:100];`
+
+在当前日期基础上加100秒
+
+`NSDate * date3 = [NSDate distantFuture];`
+
+随机获取将来一个日期
+
+`NSTimeInterval time = [date2 timeIntervalSinceDate:date1];`
+
+日期之差返回单位为秒
+
+`NSDate * date4 = [date1 earlierDate:date3];`
+
+返回较早的日期
+
+	//日期格式化
+	NSDateFormatter * formatter = [[NSDateFormatter alloc]init];
+	formatter.dateFormat = @""yy-MM-dd HH:mm:ss;
+	NSString dateStr = [formatter stringFromDate:Date1];
+	//字符串转化为日期
+	NSDate * date = [formatter dateFromString:@"2014-07-01 08:08:08"];
+
+3.字符串
+`char * str1 = "C string";`	
+
+C语言创建的字符串
+
+`NSString * str2 = @"OC string";`
+
+OC字符串
+
+`NSString * str3 = [[NSString alloc] initWithUTF8String:"C string"];`
+
+C语言字符串转换为OC字符串
+
+`const char * s = [@"abc" UTF8String]`;
+
+OC字符串转换为C字符串
+
+
+字符串大小写转换函数uppercaseString、lowercaseString
+
+首字母大写转换函数capitalizeString
+
+isEqualToString比较字符串时区分大小写，compare忽略大小写
+
+	NSComparisonResult result = [@"abc" compare: @"aBc"];
+	if(result2==NSOrderedAscending){
+        NSLog(@"left<right.");
+    }else if(result2==NSOrderedDescending){
+        NSLog(@"left>right.");
+    }else if(result2==NSOrderedSame){
+        NSLog(@"left=right.");
+    }
+    NSOrderedAscending升序、NSOrderedDescend降序，输出：left>right
+
+判断字符串首尾是否有特定字符串hasPrefix、hasSuffix
+
+字符串中间位置是否有特定字符串
+
+	 NSRange range=[@"abcdefabcdef" rangeOfString:@"cde"];
+	 //注意如果遇到cde则不再往后面搜索,如果从后面搜索或其他搜索方式可以设置第二个options参数
+    if(range.location==NSNotFound){
+        NSLog(@"not found.");
+    }else{
+        NSLog(@"range is %@",NSStringFromRange(range));
+    }
+     //结果：range is {2, 3}
+字符串分割
+
+	NSLog(@"%@",[@"abcdef" substringFromIndex:3]);//从第三个索引开始（包括第三个索引对应	的字符）截取到最后一位
+    //结果：def
+    NSLog(@"%@",[@"abcdef" substringToIndex:3]);////从0开始截取到第三个索引（不包括第三个	索引对应的字符）
+    //结果：abc
+    NSLog(@"%@",[@"abcdef" substringWithRange:NSMakeRange(2, 3)]);
+    //结果：cde
+    NSString *str1=@"12.abcd.3a";
+    NSArray *array1=[str1 componentsSeparatedByString:@"."];//字符串分割
+    NSLog(@"%@",array1);
+    //结果：(12,abcd,3a)
+     
+   
+length 指字符串长度不是字节数
+
+NSLog(@"%c",[@"abc" characterAtIndex:0]);取出制定位置的字符
 
